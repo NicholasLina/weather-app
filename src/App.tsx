@@ -1,15 +1,18 @@
+import { useEffect, useState } from 'react';
 import './App.css'
 import WeatherLayout from './components/WeatherLayout';
 import useGetWeather from './hooks/useGetWeather'
+import LocationPicker from './components/LocationPicker';
 
-function App() {
+export default function App() {
+    const [location, setLocation] = useState(null);
+
     return (
     <>
       <div className='weather-container'>
-        <WeatherLayout />
+        <LocationPicker />
+        {/* <WeatherLayout /> */}
       </div>
     </>
   )
 }
-
-export default App
