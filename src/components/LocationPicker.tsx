@@ -1,21 +1,37 @@
 import { useState } from "react";
 import { useGeoParse } from "../hooks/useGeoParse";
+import { Coordinates } from "../types/types"
 
-export default function LocationPicker() {
-    const defaultLocation = {
-        latt: "",
-        longt: "",
-        error: ""
+interface LocationPickerProps {
+    locationCallback: React.Dispatch<React.SetStateAction<Coordinates>>
+}
+
+const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
+    const getLocation = async (locationString: string): Promise<void> => {
+        let location: Coordinates = await useGeoParse(locationString);
+
+        if (location?.error !== undefined)
+            setHelperText("Server Busy! Please try again in a few moments")
+        else {
+            setHelperText(`Getting weather for ${locationString}`)
+            locationCallback(location);
+        }
     }
 
-    const [locationInput, setLocationInput] = useState("");
-    const [location, setLocation] = useState(defaultLocation);
+    const [locationInput, setLocationInput] = useState("")
+    const [helperText, setHelperText] = useState("")
 
-    return(
+    return (
         <div>
-            <input type="text" placeholder="Postal Code or City" onChange={(e) => {setLocationInput(e.target.value)}}></input>
-            <button onClick={async () => setLocation(await useGeoParse(locationInput))}>Submit</button>
-            <p>{location.error ? location.error : `Lat: ${location.latt} | Lon: ${location.longt}`}</p>
+            <h1>Enter a location to check the current weather</h1>
+            <input type="text" placeholder="Postal Code or City" onChange={(e) => { setLocationInput(e.target.value) }}></input>
+            <br></br>
+            <button onClick={ () => getLocation(locationInput) }>Submit</button>
+            <p>{helperText}</p>
+
+            <p style={{color: "gray", fontSize: "12px"}}>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://geocode.xyz/">Geocode.xyz</a></p>
         </div>
     )
 }
+
+export default LocationPicker;

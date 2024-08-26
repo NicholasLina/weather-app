@@ -1,31 +1,53 @@
 import useGetWeather from '../hooks/useGetWeather'
-import { WMOInterpreter } from '../util/WMOInterpreter';
-import { FaCircleArrowUp } from "react-icons/fa6";
+import { Coordinates } from '../types/types';
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import styles from "../styles/Weather.module.css"
+import Sky from './widgets/Sky'
+import Temperature from './widgets/Temperature';
+import Wind from './widgets/Wind';
+import Precipitation from './widgets/Precipitation';
 
-export default function WeatherLayout() {
-    const {loading, weather} = useGetWeather();
-    return(
-        <div>
-            <h1>{weather.temperature2m}°C</h1>
-            <p className='title'>Feels Like:</p>
-            <p>{weather.apparentTemperature}°C</p>
 
-            <h2>{WMOInterpreter(weather.weatherCode)}</h2>
+type SetPropsType = {
+    location: Coordinates
+}
 
-            <p className='title'>Humidity</p>
-            <p>{weather.relativeHumidity2m}</p>
+export default function WeatherLayout({ location }: SetPropsType) {
+    const {loading, weather} = useGetWeather(location);
+    // const loading = false;
+    // const weather = {
+    //     weatherCode: 0,
+    //     temperature2m: 30,
+    //     apparentTemperature: 30,
+    //     relativeHumidity2m: 35,
+    //     windDirection10m: 210,
+    //     windSpeed10m: 6,
+    //     precipitation: 0,
+    //     cloudCover: 14
+    // }
 
-            <p className='title'>Wind</p>
-            <FaCircleArrowUp style={{transform: `rotateZ(${weather.windDirection10m}deg)`, fontSize: "60px"}}/>
-            <p>{weather.windSpeed10m}km/h</p>
+    return (
+        <>
+            <div className={styles.title}>
+                <p>Current weather in</p>
+                <h2><FaLocationCrosshairs /> {location.city}</h2>
+            </div>
 
-            <p className='title'>Precipitation</p>
-            <p>{weather.precipitation}</p>
+            <div className={styles.container}>
+                <Sky weatherCode={weather.weatherCode} cloudCover={weather.cloudCover} />
 
-            <p className='title'>Cloud Cover</p>
-            <p>{weather.cloudCover}</p>
+                <Temperature temperature={weather.temperature2m} apparentTemperature={weather.apparentTemperature} />
 
-            {loading ? "loading" : ""}
-        </div>
+                <Precipitation precipitation={weather.precipitation} humidity={weather.relativeHumidity2m} />
+
+                <Wind windSpeed={weather.windSpeed10m} windDirection={weather.windDirection10m} />
+
+                {/* display loading spinner while waiting for weather promise */}
+                {loading ? "loading" : ""}
+
+            </div>
+
+            <p style={{color: "gray", fontSize: "12px"}}>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://geocode.xyz/">Geocode.xyz</a></p>
+        </>
     )
 }

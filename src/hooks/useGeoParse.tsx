@@ -1,28 +1,35 @@
-import { useState } from "react";
+import { Coordinates } from "../types/types";
 
 const BASE_URL = "https://geocode.xyz/?locate=";
 const DATA_TYPE = "&json=1";
 
-export const useGeoParse = async (location: string) => {
+export const useGeoParse = async (location: string): Promise<Coordinates> => {
     const url = BASE_URL + location + DATA_TYPE
+    const locationData = {} as Coordinates;
 
     try {
         const response = await fetch(url);
         const json = await response.json();
-        console.log(json);
 
         if(json.error) {
-            return {error: "Location not found. Please try again."}
+            locationData.error = "Location not found. Please try again."
         }
         else if(json.latt.includes("Throttled")) {
-            return {error: "Server Busy! Try again in a couple minutes."}
+            locationData.error = "Server Busy! Try again in a couple minutes."
         }
         else {
-            return json;
+            console.log(json);
+            locationData.city = `${json.standard.city}, ${json.standard.countryname}`;
+            locationData.lat = json.latt;
+            locationData.lon = json.longt;
         }
+
+        
     } catch (error) {
         if (error instanceof Error) {
             console.error(error.message);
         }
     }
+
+    return locationData;
 };

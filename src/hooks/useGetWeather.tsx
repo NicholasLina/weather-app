@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
 import { fetchWeatherApi } from 'openmeteo';
 import toast from "react-hot-toast";
-import useGetLocation from "./useGetLocation";
+import { Coordinates } from "../types/types";
 
-
-const useGetWeather = () => {
-    
-    const { latitude, longitude } = useGetLocation();
+const useGetWeather = (location: Coordinates) => {
 
     const params = {
-        "latitude": latitude,
-        "longitude": longitude,
+        "latitude": location.lat,
+        "longitude": location.lon,
         "current": ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "is_day", "precipitation", "weather_code", "cloud_cover", "wind_speed_10m", "wind_direction_10m"],
+        "daily": ["apparent_temperature_max", "apparent_temperature_min", "sunrise", "sunset"],
         "timeformat": "unixtime"
     };
     const url = "https://api.open-meteo.com/v1/forecast";
@@ -69,7 +67,7 @@ const useGetWeather = () => {
         };
 
         getWeather();
-    }, [latitude, longitude]);
+    }, [location.lat, location.lon]);
 
     return { loading, weather };
 }
