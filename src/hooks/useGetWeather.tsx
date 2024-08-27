@@ -3,6 +3,12 @@ import { fetchWeatherApi } from 'openmeteo';
 import toast from "react-hot-toast";
 import { Coordinates } from "../types/types";
 
+/**
+ * @function useGetWeather
+ * @async
+ * @description Get the current weather data at the given location
+ * @returns {Promise<Object, boolean>} A Promise containing the weather data and a flag to show when the promise has resolved.
+ */
 const useGetWeather = (location: Coordinates) => {
 
     const params = {

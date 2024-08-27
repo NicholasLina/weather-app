@@ -7,13 +7,22 @@ import Temperature from './widgets/Temperature';
 import Wind from './widgets/Wind';
 import Precipitation from './widgets/Precipitation';
 
-
-type SetPropsType = {
+type WeahterProps = {
     location: Coordinates
 }
 
-export default function WeatherLayout({ location }: SetPropsType) {
+/**
+ * @description A component that displays the weather data dashboard
+ * @component
+ * @param {Object} WeatherProps - The component props.
+ * @param {Object} location - An Object of type Coordinates containing lattitude, longitude, and city.
+ * @returns {JSX.Element} The rendered component.
+ */
+
+export default function WeatherLayout({ location }: WeahterProps) {
     const {loading, weather} = useGetWeather(location);
+
+    // SAMPLE DATA TO USE FOR TESTING TO LIMIT API CALLS
     // const loading = false;
     // const weather = {
     //     weatherCode: 0,

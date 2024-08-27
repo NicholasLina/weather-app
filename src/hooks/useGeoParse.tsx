@@ -1,9 +1,14 @@
 import { Coordinates } from "../types/types";
 
-const BASE_URL = "https://geocode.xyz/?locate=";
-const DATA_TYPE = "&json=1";
-
+/**
+ * @function useGeoParse
+ * @async
+ * @description Get user's city/country lattitude and longitude from a postal code or city name
+ * @returns {Promise<Coordinates>} A Promise containing the city/country, lattitude, longitude, and error data.
+ */
 export const useGeoParse = async (location: string): Promise<Coordinates> => {
+    const BASE_URL = "https://geocode.xyz/?locate=";
+    const DATA_TYPE = "&json=1";
     const url = BASE_URL + location + DATA_TYPE
     const locationData = {} as Coordinates;
 

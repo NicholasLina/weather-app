@@ -6,6 +6,14 @@ interface LocationPickerProps {
     locationCallback: React.Dispatch<React.SetStateAction<Coordinates>>
 }
 
+/**
+ * @description A component that displays a location input screen
+ * @component
+ * @param {Object} LocationPickerProps - The component props.
+ * @param {function} locationCallback - The setState function for the app location variable.
+ * @returns {JSX.Element} The rendered component.
+ */
+
 const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
     const getLocation = async (locationString: string): Promise<void> => {
         let location: Coordinates = await useGeoParse(locationString);

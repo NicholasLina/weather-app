@@ -1,26 +1,31 @@
-import { useState } from 'react';
 import './App.css'
+import { useState } from 'react';
 import WeatherLayout from './components/WeatherLayout';
 import LocationPicker from './components/LocationPicker';
 import { Coordinates } from './types/types';
 
+/**
+ * @description The main App component
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function App() {
-    const [location, setLocation] = useState<Coordinates>({} as Coordinates);
-    // const location: Coordinates = {
-    //   city: "Niagara Falls, Canada",
-    //   lat: 12,
-    //   lon: 12,
-    //   error: ""
-    // } 
+  const [location, setLocation] = useState<Coordinates>({} as Coordinates);
 
-    return (
-    <>
-      <div className='weather-container'>
-        {location?.lat === undefined ? 
-          <LocationPicker locationCallback={ setLocation } />
-          :<WeatherLayout location={location} />
-        }
-      </div>
-    </>
+  // EXAMPLE COORDINATES TO USE FOR TESTING (REDUCING API CALLS)
+  // const location: Coordinates = {
+  //   city: "Niagara Falls, Canada",
+  //   lat: 12,
+  //   lon: 12,
+  //   error: ""
+  // } 
+
+  return (
+    <div>
+      {location?.lat === undefined ?
+        <LocationPicker locationCallback={setLocation} />
+        : <WeatherLayout location={location} />
+      }
+    </div>
   )
 }

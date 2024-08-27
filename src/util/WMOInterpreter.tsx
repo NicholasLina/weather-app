@@ -1,10 +1,15 @@
-// Turn WMO Codes into useful descriptors and icons
-// https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM
-
 import { BsCloudDrizzleFill, BsCloudSnowFill } from "react-icons/bs";
 import { FaCloud, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaSun } from "react-icons/fa6";
 import { MdFoggy } from "react-icons/md";
 
+/**
+ * @function WMOToText
+ * @description Turn WMO Codes into useful descriptors
+ * @param {number} code - WMO code to be interpreted.
+ * @returns {string} The plain english descriptor.
+ * 
+ * https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM
+ */
 export const WMOToText = (code: number): string => {
     switch (code) {
 
@@ -56,9 +61,19 @@ export const WMOToText = (code: number): string => {
         default: return ("Error: Invalid WMO")
     }
 }
+
 interface WMOToIconProps {
     weatherCode: number
 }
+
+/**
+ * @function WMOToIcon
+ * @description Turn WMO Codes into representative icons
+ * @param {number} code - WMO code to be interpreted.
+ * @returns {JSX.Element} The corresponding react-icon.
+ * 
+ * https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM
+ */
 export const WMOToIcon = ({weatherCode}: WMOToIconProps): JSX.Element | string => {
     switch (weatherCode) {
 

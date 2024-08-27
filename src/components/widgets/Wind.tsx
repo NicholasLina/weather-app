@@ -6,6 +6,14 @@ interface WindProps {
     windDirection: number
 }
 
+/**
+ * @description A component that displays information about the wind
+ * @component
+ * @param {Object} WindProps - The component props.
+ * @param {number} windSpeed - Speed of wind in km/h.
+ * @param {number} windDirection - Direction of wind in degrees.
+ * @returns {JSX.Element} The rendered component.
+ */
 const Wind = ({ windSpeed, windDirection }: WindProps): JSX.Element => {
     return (
         <div className={styles.main}>
@@ -19,8 +27,14 @@ const Wind = ({ windSpeed, windDirection }: WindProps): JSX.Element => {
     )
 }
 
-// Get a descriptive term from the wind speed given in km/h using the Beaufort Wind Scale Table 
-// https://www.canada.ca/en/environment-climate-change/services/general-marine-weather-information/understanding-forecasts/beaufort-wind-scale-table.html
+/**
+ * @function getWindSpeedDescriptor
+ * @description Get a descriptive term from the wind speed given in km/h using the Beaufort Wind Scale Table
+ * @param {number} windSpeed - Wind speed in km/h.
+ * @returns {string} The corresponding descriptive term.
+ * 
+ * https://www.canada.ca/en/environment-climate-change/services/general-marine-weather-information/understanding-forecasts/beaufort-wind-scale-table.html
+ */
 const getWindSpeedDescriptor = (windSpeed: number): string => {
     if (windSpeed < 1) {
         return "Calm"

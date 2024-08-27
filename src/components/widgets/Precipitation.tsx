@@ -3,6 +3,14 @@ interface PrecipitationProps {
     humidity: number
 }
 
+/**
+ * @description A component that displays information about precipitation
+ * @component
+ * @param {Object} PrecipitationProps - The component props.
+ * @param {number} precipitation - Amount of precipitation this hour in mm.
+ * @param {number} humidity - Relative humidity as a percentage.
+ * @returns {JSX.Element} The rendered component.
+ */
 const Precipitation = ({precipitation, humidity}: PrecipitationProps): JSX.Element => {
     return (
         <div>

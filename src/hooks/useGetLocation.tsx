@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 
-const useGetLocation = () => {
+/**
+ * @deprecated
+ * @function useGetLocation
+ * @description Get location data using the browser navigator
+ * @returns {Promise<Object>} An object containing the lattitude and longitude of the user.
+ */
+const useGetLocation = (): {latitude: number, longitude: number} => {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     
