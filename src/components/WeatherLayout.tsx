@@ -1,11 +1,13 @@
 import useGetWeather from '../hooks/useGetWeather'
-import { Coordinates } from '../types/types';
-import { FaLocationCrosshairs } from "react-icons/fa6";
-import styles from "../styles/Weather.module.css"
+import { FaLocationCrosshairs } from "react-icons/fa6"
+
+import { Coordinates } from '../types/types'
+import LoadingSpinner from './LoadingSpinner'
 import Sky from './widgets/Sky'
-import Temperature from './widgets/Temperature';
-import Wind from './widgets/Wind';
-import Precipitation from './widgets/Precipitation';
+import Temperature from './widgets/Temperature'
+import Wind from './widgets/Wind'
+import Precipitation from './widgets/Precipitation'
+import styles from "../styles/Weather.module.css"
 
 type WeahterProps = {
     location: Coordinates
@@ -18,7 +20,6 @@ type WeahterProps = {
  * @param {Object} location - An Object of type Coordinates containing lattitude, longitude, and city.
  * @returns {JSX.Element} The rendered component.
  */
-
 export default function WeatherLayout({ location }: WeahterProps) {
     const {loading, weather} = useGetWeather(location);
 
@@ -42,19 +43,21 @@ export default function WeatherLayout({ location }: WeahterProps) {
                 <h2><FaLocationCrosshairs /> {location.city}</h2>
             </div>
 
-            <div className={styles.container}>
-                <Sky weatherCode={weather.weatherCode} cloudCover={weather.cloudCover} />
+            {loading ? 
+                <LoadingSpinner /> 
+                :
+                <div className={styles.container}>
+                    <Sky weatherCode={weather.weatherCode} cloudCover={weather.cloudCover} />
 
-                <Temperature temperature={weather.temperature2m} apparentTemperature={weather.apparentTemperature} />
+                    <Temperature temperature={weather.temperature2m} apparentTemperature={weather.apparentTemperature} />
 
-                <Precipitation precipitation={weather.precipitation} humidity={weather.relativeHumidity2m} />
+                    <Precipitation precipitation={weather.precipitation} humidity={weather.relativeHumidity2m} />
 
-                <Wind windSpeed={weather.windSpeed10m} windDirection={weather.windDirection10m} />
+                    <Wind windSpeed={weather.windSpeed10m} windDirection={weather.windDirection10m} />
 
-                {/* display loading spinner while waiting for weather promise */}
-                {loading ? "loading" : ""}
-
-            </div>
+                    {/* display loading spinner while waiting for weather promise */}
+                </div>
+            }
 
             <p style={{color: "gray", fontSize: "12px"}}>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://geocode.xyz/">Geocode.xyz</a></p>
         </>

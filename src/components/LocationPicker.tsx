@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGeoParse } from "../hooks/useGeoParse";
 import { Coordinates } from "../types/types"
+import LoadingSpinner from "./LoadingSpinner";
 
 interface LocationPickerProps {
     locationCallback: React.Dispatch<React.SetStateAction<Coordinates>>
