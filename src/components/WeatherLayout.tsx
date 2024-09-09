@@ -8,6 +8,7 @@ import Temperature from './widgets/Temperature'
 import Wind from './widgets/Wind'
 import Precipitation from './widgets/Precipitation'
 import styles from "../styles/Weather.module.css"
+import Footer from './Footer'
 
 type WeahterProps = {
     location: Coordinates
@@ -59,7 +60,7 @@ export default function WeatherLayout({ location }: WeahterProps) {
                 </div>
             }
 
-            <p style={{color: "gray", fontSize: "12px"}}>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://geocode.xyz/">Geocode.xyz</a></p>
+            <Footer />
         </>
     )
 }

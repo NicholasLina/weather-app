@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useGeoParse } from "../hooks/useGeoParse";
 import { Coordinates } from "../types/types"
 import LoadingSpinner from "./LoadingSpinner";
+import Footer from "./Footer";
 
 interface LocationPickerProps {
     locationCallback: React.Dispatch<React.SetStateAction<Coordinates>>
@@ -38,7 +39,7 @@ const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
             <button onClick={ () => getLocation(locationInput) }>Submit</button>
             <p>{helperText}</p>
 
-            <p style={{color: "gray", fontSize: "12px"}}>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://geocode.xyz/">Geocode.xyz</a></p>
+            <Footer />
         </div>
     )
 }
