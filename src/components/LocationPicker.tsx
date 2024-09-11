@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGeoParse } from "../hooks/useGeoParse";
 import { Coordinates } from "../types/types"
 import LoadingSpinner from "./LoadingSpinner";
 import Footer from "./Footer";
+import useGetLocation from "../hooks/useGetLocation";
+import useGeoLocation from "../hooks/useGeoLocation";
 
 interface LocationPickerProps {
     locationCallback: React.Dispatch<React.SetStateAction<Coordinates>>
@@ -28,16 +30,28 @@ const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
         }
     }
 
+    const location = useGeoLocation();
     const [locationInput, setLocationInput] = useState("")
     const [helperText, setHelperText] = useState("")
 
+    useEffect(() => {
+        console.log(JSON.stringify(location.coordinates))
+        getLocation(JSON.stringify(location.coordinates))
+    }, [location])
+
     return (
         <div>
-            <h1>Enter a location to check the current weather</h1>
-            <input type="text" placeholder="Postal Code or City" onChange={(e) => { setLocationInput(e.target.value) }}></input>
-            <br></br>
-            <button onClick={ () => getLocation(locationInput) }>Submit</button>
-            <p>{helperText}</p>
+            {
+                location.loaded ? 
+                <>
+                    <h1>Enter a location to check the current weather</h1>
+                    <input type="text" placeholder="Postal Code or City" onChange={(e) => { setLocationInput(e.target.value) }}></input>
+                    <br></br>
+                    <button onClick={ () => getLocation(locationInput) }>Submit</button>
+                    <p>{helperText}</p>
+                </> :
+                <LoadingSpinner />
+            }
 
             <Footer />
         </div>
