@@ -3,7 +3,9 @@ import styles from "../../styles/Temperature.module.css"
 
 interface TemperatureProps {
     temperature: number,
-    apparentTemperature: number
+    apparentTemperature: number,
+    temperatureMax: number,
+    temperatureMin: number
 }
 
 /**
@@ -14,12 +16,16 @@ interface TemperatureProps {
  * @param {number} apparentTemperature - The perceived temperature taking into account wind chill and other factors.
  * @returns {JSX.Element} The rendered component.
  */
-const Temperature = ({ temperature, apparentTemperature }: TemperatureProps): JSX.Element => {
+const Temperature = ({ temperature, apparentTemperature, temperatureMax, temperatureMin }: TemperatureProps): JSX.Element => {
     return (
         <div>
             <div className={styles.main}>
                 <h1>{temperature}°C</h1>
                 <TempRangeIcon temperature={temperature} color={getTempRangeColor(temperature)}/>
+                <div className={styles.tempRange}>
+                    <p><b>{temperatureMax}°C</b></p>
+                    <p><b>{temperatureMin}°C</b></p>
+                </div>
             </div>
             <div>
                 <p>Feels Like:</p>

@@ -7,7 +7,7 @@
 const Footer = (): JSX.Element => {
     return (
         <footer>
-            <p style={{color: "gray", fontSize: "12px"}}>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://geocode.xyz/">Geocode.xyz</a></p>
+            <p style={{color: "gray", fontSize: "12px"}}>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://www.geoapify.com/">Geoapify</a></p>
         </footer>
     )
 }

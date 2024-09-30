@@ -30,27 +30,21 @@ const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
         }
     }
 
-    const location = useGeoLocation();
     const [locationInput, setLocationInput] = useState("")
     const [helperText, setHelperText] = useState("")
-
-    useEffect(() => {
-        console.log(JSON.stringify(location.coordinates))
-        getLocation(JSON.stringify(location.coordinates))
-    }, [location])
 
     return (
         <div>
             {
-                location.loaded ? 
+                // location.loaded ? 
                 <>
                     <h1>Enter a location to check the current weather</h1>
                     <input type="text" placeholder="Postal Code or City" onChange={(e) => { setLocationInput(e.target.value) }}></input>
                     <br></br>
                     <button onClick={ () => getLocation(locationInput) }>Submit</button>
                     <p>{helperText}</p>
-                </> :
-                <LoadingSpinner />
+                </> 
+                // : <LoadingSpinner />
             }
 
             <Footer />

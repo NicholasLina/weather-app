@@ -15,7 +15,7 @@ const Precipitation = ({precipitation, humidity}: PrecipitationProps): JSX.Eleme
     return (
         <div>
             <div>
-                <p>Precipitation this hour</p>
+                <p>Precipitation Today</p>
                 <p><b>{precipitation}mm</b></p>
             </div>
 

@@ -1,5 +1,6 @@
 import { BsCloudDrizzleFill, BsCloudSnowFill } from "react-icons/bs";
 import { FaCloud, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaSun } from "react-icons/fa6";
+import { IoThunderstorm } from "react-icons/io5";
 import { MdFoggy } from "react-icons/md";
 
 /**
@@ -57,6 +58,11 @@ export const WMOToText = (code: number): string => {
         // SNOW SHOWERS
         case 85: return ("Slight Snow Showers");
         case 86: return ("Heavy Snow Showers");
+
+        // THUNDERSTORMS
+        case 95: return ("Thunderstorm");
+        case 96: return ("Thunderstorm with Hail");
+        case 99: return ("Thunderstorm with Hail");
 
         default: return ("Error: Invalid WMO")
     }
@@ -121,6 +127,11 @@ export const WMOToIcon = ({weatherCode}: WMOToIconProps): JSX.Element | string =
         // SNOW SHOWERS
         case 85: return <FaCloudShowersHeavy />;
         case 86: return <FaCloudShowersHeavy />;
+
+        // THUNDERSTORM
+        case 95: return <IoThunderstorm />;
+        case 96: return <IoThunderstorm />;
+        case 99: return <IoThunderstorm />;
 
         default: return "Error: Invalid WMO"
     }

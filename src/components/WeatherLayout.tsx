@@ -50,11 +50,11 @@ export default function WeatherLayout({ location }: WeahterProps) {
                 <div className={styles.container}>
                     <Sky weatherCode={weather.weatherCode} cloudCover={weather.cloudCover} />
 
-                    <Temperature temperature={weather.temperature2m} apparentTemperature={weather.apparentTemperature} />
+                    <Temperature temperature={weather.temperature} apparentTemperature={weather.apparentTemperature} temperatureMax={weather.temperatureMax} temperatureMin={weather.temperatureMin}/>
 
-                    <Precipitation precipitation={weather.precipitation} humidity={weather.relativeHumidity2m} />
+                    <Precipitation precipitation={weather.precipitation} humidity={weather.relativeHumidity} />
 
-                    <Wind windSpeed={weather.windSpeed10m} windDirection={weather.windDirection10m} />
+                    <Wind windSpeed={weather.windSpeed} windDirection={weather.windDirection} />
 
                     {/* display loading spinner while waiting for weather promise */}
                 </div>
