@@ -21,7 +21,7 @@ const useGetWeather = (location: Coordinates) => {
         const getWeather = async () => {
             setLoading(true);
             try {
-                const response = await fetch(url + lat +"-" + lon);
+                const response = await fetch(url + lat + "-" + lon);
                 const json = await response.json();
 
                 console.log(json);
