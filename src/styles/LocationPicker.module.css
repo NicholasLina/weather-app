@@ -1,0 +1,9 @@
+.title {
+    font-size: min(3.2rem, 10vw);
+}
+.button {
+    background-color: #646cff;
+}
+.button:hover {
+    background-color: #252a88;
+}

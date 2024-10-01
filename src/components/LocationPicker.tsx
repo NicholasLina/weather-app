@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useGeoParse } from "../hooks/useGeoParse";
 import { Coordinates } from "../types/types"
 import Footer from "./Footer";
+import styles from "../styles/LocationPicker.module.css"
 
 interface LocationPickerProps {
     locationCallback: React.Dispatch<React.SetStateAction<Coordinates>>
@@ -16,7 +17,9 @@ interface LocationPickerProps {
  */
 
 const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
-    const getLocation = async (locationString: string): Promise<void> => {
+    const getLocation = async (e: FormEvent, locationString: string): Promise<void> => {
+        e.preventDefault();
+
         let location: Coordinates = await useGeoParse(locationString);
 
         if (location?.error !== undefined)
@@ -34,13 +37,13 @@ const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
         <div>
             {
                 // location.loaded ? 
-                <>
-                    <h1>Enter a location to check the current weather</h1>
+                <form onSubmit={ (e) => getLocation(e, locationInput) }>
+                    <h1 className={ styles.title }>Enter a location to check the current weather</h1>
                     <input type="text" placeholder="Postal Code or City" onChange={(e) => { setLocationInput(e.target.value) }}></input>
                     <br></br>
-                    <button onClick={ () => getLocation(locationInput) }>Submit</button>
+                    <button className={ styles.button } onClick={ (e) => getLocation(e, locationInput) }>Submit</button>
                     <p>{helperText}</p>
-                </> 
+                </form> 
                 // : <LoadingSpinner />
             }
 
