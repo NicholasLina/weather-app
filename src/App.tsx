@@ -3,6 +3,7 @@ import { useState } from 'react';
 import WeatherLayout from './components/WeatherLayout';
 import LocationPicker from './components/LocationPicker';
 import { Coordinates } from './types/types';
+import { BrowserRouter } from 'react-router-dom';
 
 /**
  * @description The main App component
@@ -21,11 +22,13 @@ export default function App() {
   // } 
 
   return (
-    <div>
-      {location?.lat === undefined ?
-        <LocationPicker locationCallback={setLocation} />
-        : <WeatherLayout location={location} />
-      }
-    </div>
+    <BrowserRouter basename="/weather">
+      <div>
+        {location?.lat === undefined ?
+          <LocationPicker locationCallback={setLocation} />
+          : <WeatherLayout location={location} />
+        }
+      </div>
+    </BrowserRouter>
   )
 }
