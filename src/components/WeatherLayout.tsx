@@ -1,14 +1,10 @@
 import useGetWeather from '../hooks/useGetWeather'
-import { FaLocationCrosshairs } from "react-icons/fa6"
-
 import { Coordinates } from '../types/types'
 import LoadingSpinner from './LoadingSpinner'
-import Sky from './widgets/Sky'
 import Temperature from './widgets/Temperature'
 import Wind from './widgets/Wind'
 import Precipitation from './widgets/Precipitation'
 import styles from "../styles/Weather.module.css"
-import Footer from './Footer'
 
 type WeahterProps = {
     location: Coordinates
@@ -41,26 +37,37 @@ export default function WeatherLayout({ location }: WeahterProps) {
         <>
             <div className={styles.title}>
                 <p>Current weather in</p>
-                <h2><FaLocationCrosshairs /> {location.city}</h2>
+                <h2>{location.city}</h2>
             </div>
 
             {loading ? 
+                /* display loading spinner while waiting for weather promise */
                 <LoadingSpinner /> 
                 :
                 <div className={styles.container}>
-                    <Sky weatherCode={weather.weatherCode} cloudCover={weather.cloudCover} />
+                    <Precipitation 
+                        weatherCode={weather.weatherCode} 
+                        cloudCover={weather.cloudCover}
+                        precipitation={weather.precipitation} 
+                        humidity={weather.relativeHumidity} 
+                        gridAreaName="precip"
+                        />
 
-                    <Temperature temperature={weather.temperature} apparentTemperature={weather.apparentTemperature} temperatureMax={weather.temperatureMax} temperatureMin={weather.temperatureMin}/>
+                    <Temperature 
+                        temperature={weather.temperature} 
+                        apparentTemperature={weather.apparentTemperature} 
+                        temperatureMax={weather.temperatureMax} 
+                        temperatureMin={weather.temperatureMin}
+                        gridAreaName="temp"
+                        />
 
-                    <Precipitation precipitation={weather.precipitation} humidity={weather.relativeHumidity} />
-
-                    <Wind windSpeed={weather.windSpeed} windDirection={weather.windDirection} />
-
-                    {/* display loading spinner while waiting for weather promise */}
+                    <Wind 
+                        windSpeed={weather.windSpeed}
+                        windDirection={weather.windDirection} 
+                        gridAreaName="wind"
+                        />
                 </div>
             }
-
-            <Footer />
         </>
     )
 }

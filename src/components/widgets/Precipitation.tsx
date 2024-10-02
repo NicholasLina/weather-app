@@ -1,6 +1,11 @@
+import { WMOToText, WMOToIcon } from "../../util/WMOInterpreter"
+
 interface PrecipitationProps {
+    weatherCode: number,
+    cloudCover: number
     precipitation: number,
-    humidity: number
+    humidity: number,
+    gridAreaName: string
 }
 
 /**
@@ -11,12 +16,17 @@ interface PrecipitationProps {
  * @param {number} humidity - Relative humidity as a percentage.
  * @returns {JSX.Element} The rendered component.
  */
-const Precipitation = ({precipitation, humidity}: PrecipitationProps): JSX.Element => {
+const Precipitation = ({weatherCode, cloudCover, precipitation, humidity, gridAreaName}: PrecipitationProps): JSX.Element => {
     return (
-        <div>
+        <div style={{gridArea: gridAreaName}} id="precipitation">
+            <WMOToIcon weatherCode={weatherCode} />
             <div>
-                <p>Precipitation Today</p>
-                <p><b>{precipitation}mm</b></p>
+                <h2>{WMOToText(weatherCode)}</h2>
+                <p>{cloudCover}% Cloud Coverage</p>
+            </div>
+            <div>
+                <p>Precipitation</p>
+                <h3>{precipitation}mm</h3>
             </div>
 
             <div>

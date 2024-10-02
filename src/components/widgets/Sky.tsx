@@ -7,6 +7,7 @@ interface SkyProps {
 }
 
 /**
+ * @deprecated
  * @description A component that displays information about the sky and clouds
  * @component
  * @param {Object} SkyProps - The component props.

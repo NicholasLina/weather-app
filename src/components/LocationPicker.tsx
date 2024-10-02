@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useGeoParse } from "../hooks/useGeoParse";
 import { Coordinates } from "../types/types"
-import Footer from "./Footer";
 import styles from "../styles/LocationPicker.module.css"
 
 interface LocationPickerProps {
@@ -46,8 +45,6 @@ const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
                 </form> 
                 // : <LoadingSpinner />
             }
-
-            <Footer />
         </div>
     )
 }

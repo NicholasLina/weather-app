@@ -4,6 +4,7 @@ import WeatherLayout from './components/WeatherLayout';
 import LocationPicker from './components/LocationPicker';
 import { Coordinates } from './types/types';
 import { BrowserRouter } from 'react-router-dom';
+import Footer from './components/Footer';
 
 /**
  * @description The main App component
@@ -23,12 +24,13 @@ export default function App() {
 
   return (
     <BrowserRouter basename="/weather">
-      <div>
+      <div id="main">
         {location?.lat === undefined ?
           <LocationPicker locationCallback={setLocation} />
           : <WeatherLayout location={location} />
         }
       </div>
+      <Footer />
     </BrowserRouter>
   )
 }

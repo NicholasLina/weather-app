@@ -1,9 +1,9 @@
 import { FaCircleArrowUp } from "react-icons/fa6"
-import styles from "../../styles/Wind.module.css"
 
 interface WindProps {
     windSpeed: number,
-    windDirection: number
+    windDirection: number,
+    gridAreaName: string
 }
 
 /**
@@ -14,15 +14,14 @@ interface WindProps {
  * @param {number} windDirection - Direction of wind in degrees.
  * @returns {JSX.Element} The rendered component.
  */
-const Wind = ({ windSpeed, windDirection }: WindProps): JSX.Element => {
+const Wind = ({ windSpeed, windDirection, gridAreaName }: WindProps): JSX.Element => {
     return (
-        <div className={styles.main}>
+        <div style={{gridArea: gridAreaName, flexDirection: 'row', justifyContent: "space-around", gap: "40px"}}>
+            <h2>{getWindSpeedDescriptor(windSpeed)}</h2>
             <div>
-                <p className={styles.speedTitle}>Wind Speed:</p>
-                <p><b>{getWindSpeedDescriptor(windSpeed)}</b></p>
+                <FaCircleArrowUp style={{ transform: `rotateZ(${windDirection}deg)`, fontSize: "60px" }} />
+                <p><b>{windSpeed}km/h</b></p>
             </div>
-            <FaCircleArrowUp style={{ transform: `rotateZ(${windDirection}deg)`, fontSize: "60px" }} />
-            <p><b>{windSpeed}km/h</b></p>
         </div>
     )
 }

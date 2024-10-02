@@ -1,3 +1,5 @@
+import styles from  "../styles/Footer.module.css"
+
 /**
  * @description Footer element containing links to public APIs used in this project
  * @component
@@ -6,8 +8,8 @@
 
 const Footer = (): JSX.Element => {
     return (
-        <footer>
-            <p style={{color: "gray", fontSize: "12px"}}>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://www.geoapify.com/">Geoapify</a></p>
+        <footer className={ styles.footer }>
+            <p>Powered By: <a href="https://open-meteo.com/">Open-Meteo</a> and <a href="https://www.geoapify.com/">Geoapify</a></p>
         </footer>
     )
 }
