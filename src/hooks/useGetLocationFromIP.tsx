@@ -16,7 +16,7 @@ const useGetLocationFromIP = () => {
                 const responseIP = await fetch("https://api.ipify.org/?format=json");
                 const jsonIP = await responseIP.json();
 
-                const responseLocation = await fetch("http://ip-api.com/json/" + jsonIP.ip);
+                const responseLocation = await fetch("https://api.nicklina.com/ip-location/" + jsonIP.ip);
                 const jsonLocation = await responseLocation.json();
 
                 const suggestedLocation = {
