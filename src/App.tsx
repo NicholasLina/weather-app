@@ -13,7 +13,7 @@ import Footer from './components/Footer';
  */
 export default function App() {
   const [location, setLocation] = useState<Coordinates>({} as Coordinates);
-
+  
   // EXAMPLE COORDINATES TO USE FOR TESTING (REDUCING API CALLS)
   // const location: Coordinates = {
   //   city: "Niagara Falls, Canada",

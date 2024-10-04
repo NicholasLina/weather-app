@@ -19,3 +19,10 @@ export interface WeatherData {
     windSpeed: number,
     windDirection: number,
 }
+
+export interface LocationSuggestion {
+    city: string,
+    country: string,
+    lat: string,
+    lon: string
+}
