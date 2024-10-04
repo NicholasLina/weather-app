@@ -1,7 +1,8 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useGeoParse } from "../hooks/useGeoParse";
 import { Coordinates } from "../types/types"
-import styles from "../styles/LocationPicker.module.css"
+import useGetLocationFromIP from "../hooks/useGetLocationFromIP";
+import { LocationSuggestion } from "../types/types";
 
 interface LocationPickerProps {
     locationCallback: React.Dispatch<React.SetStateAction<Coordinates>>
@@ -16,8 +17,31 @@ interface LocationPickerProps {
  */
 
 const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
+
+    const [locationInput, setLocationInput] = useState("")
+    const [helperText, setHelperText] = useState("")
+    const [suggestedLocation, setSuggestedLocation] = useState({} as LocationSuggestion)
+    const IPLocation = useGetLocationFromIP();
+
+    useEffect(() => {
+        if (IPLocation != undefined) {
+            setSuggestedLocation(
+                {
+                    city: IPLocation.city,
+                    country: IPLocation.country,
+                    lat: IPLocation.lat,
+                    lon: IPLocation.lon
+                })
+        }
+    }, [IPLocation])
+
     const getLocation = async (e: FormEvent, locationString: string): Promise<void> => {
         e.preventDefault();
+
+        if (locationString == "") {
+            setHelperText("Please enter a valid location! Thanks :)");
+            return
+        }
 
         let location: Coordinates = await useGeoParse(locationString);
 
@@ -29,21 +53,27 @@ const LocationPicker = ({ locationCallback }: LocationPickerProps) => {
         }
     }
 
-    const [locationInput, setLocationInput] = useState("")
-    const [helperText, setHelperText] = useState("")
-
     return (
         <div>
             {
-                // location.loaded ? 
-                <form onSubmit={ (e) => getLocation(e, locationInput) }>
-                    <h1 className={ styles.title }>Enter a location to check the current weather</h1>
-                    <input type="text" placeholder="Postal Code or City" onChange={(e) => { setLocationInput(e.target.value) }}></input>
-                    <br></br>
-                    <button className={ styles.button } onClick={ (e) => getLocation(e, locationInput) }>Submit</button>
+                <form onSubmit={(e) => getLocation(e, locationInput)}>
+                    <h1>Enter a location to check the current weather</h1>
+                    <input
+                        type="text"
+                        placeholder="Postal Code or City"
+                        onChange={(e) => { setLocationInput(e.target.value) }}>
+                    </input>
+
+                    <button
+                        onClick={(e) => getLocation(e, locationInput)}>
+                        Submit
+                    </button>
+
+                    <a 
+                        onClick={(e) => getLocation(e, `${suggestedLocation.city}, ${suggestedLocation.country}`)}>
+                            Weather in {suggestedLocation.city}, {suggestedLocation.country}</a>
                     <p>{helperText}</p>
-                </form> 
-                // : <LoadingSpinner />
+                </form>
             }
         </div>
     )
